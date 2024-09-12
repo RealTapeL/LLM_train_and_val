@@ -169,10 +169,52 @@ python eval.py \
     --output_dir ${output_path} \
 ```
 
-# 指令数据
+### 指令数据
 以下是本项目的部分指令数据
 
  指令数据名称  | 说明  
  ----                                                                                                                              | ----- |
 [stem_zh_instruction](https://github.com/RealTapeL/Fine-tuning-and-validation-based-on-llama3/tree/main/data/stem_zh_instruction)  | 使用gpt-3.5爬取的STEM数据，包含物理、化学、医学、生物学、地球科学 
 [DPO-zh-en-emoji ](https://huggingface.co/datasets/shareAI/DPO-zh-en-emoji)                                                        | ShareAI是国内的优秀开源组织，他们整理的中文数据集可以对已有的对话模型进行语言载体和语言风格(幽默风格 + emoji 表情) 的偏好强化对齐
+
+## 基于[llama.cpp](https://github.com/ggerganov/llama.cpp)的部署
+
+运行前请确保环境：
+
+系统应有make（MacOS/Linux自带）或cmake（Windows需自行安装）编译工具
+建议使用Python 3.10以上编译和运行该工具
+
+Step 1: 编译llama.cpp
+
+llama.cpp在2024年4月30日对编译做出重大改动，请务必拉取最新仓库进行编译！
+```
+$ git clone https://github.com/ggerganov/llama.cpp
+```
+对llama.cpp项目进行编译，生成./main（用于推理）和./quantize（用于量化）二进制文件
+```
+$ make
+```
+Windows/Linux用户如需启用GPU推理，则推荐使用cuda编译
+```
+$ make LLAMA_CUDA=1
+```
+
+Step 2:生成量化版本(gguf格式)模型
+
+目前llama.cpp已支持.safetensors文件以及Hugging Face格式.bin转换为FP16的GGUF格式
+```
+$ python convert-hf-to-gguf.py your_model_name
+$ ./quantize your_model_name/ggml-model-f16.gguf your_model_name/ggml-model-q4_0.gguf q4_0
+```
+
+Step 3: 加载并启动模型
+## Linux、macOS等的系统：
+#### 对话模式（允许与模型持续交互）
+```
+./llama-cli -m /home/fw/results8.24/earthllm826/earth.gguf -p "You are a helpful assistant" -cnv --chat-template chatml
+```
+## Windows系统：
+#### 对话模式（允许与模型持续交互）
+```
+./llama-cli.exe -m /home/fw/results8.24/earthllm826/earth.gguf -p "You are a helpful assistant" -cnv --chat-template chatml
+```
