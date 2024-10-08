@@ -203,8 +203,8 @@ Step 2:生成量化版本(gguf格式)模型
 
 目前llama.cpp已支持.safetensors文件以及Hugging Face格式.bin转换为FP16的GGUF格式
 ```
-$ python convert-hf-to-gguf.py your_model_name
-$ ./quantize your_model_name/ggml-model-f16.gguf your_model_name/ggml-model-q4_0.gguf q4_0
+$ python convert_hf_to_gguf.py your_model_name
+$ ./llama-quantize your_model_name/ggml-model-f16.gguf your_model_name/ggml-model-q4_0.gguf q4_0
 ```
 
 Step 3: 加载并启动模型
