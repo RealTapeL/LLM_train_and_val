@@ -177,7 +177,7 @@ python eval.py \
 [stem_zh_instruction](https://github.com/RealTapeL/Fine-tuning-and-validation-based-on-llama3/tree/main/data/stem_zh_instruction)  | 使用gpt-3.5爬取的STEM数据，包含物理、化学、医学、生物学、地球科学 
 [DPO-zh-en-emoji ](https://huggingface.co/datasets/shareAI/DPO-zh-en-emoji)                                                        | ShareAI是国内的优秀开源组织，他们整理的中文数据集可以对已有的对话模型进行语言载体和语言风格(幽默风格 + emoji 表情) 的偏好强化对齐
 
-## 基于[llama.cpp](https://github.com/ggerganov/llama.cpp)的部署
+## 基于[llama.cpp](https://github.com/ggerganov/llama.cpp)部署
 
 运行前请确保环境：
 
@@ -208,7 +208,7 @@ $ ./llama-quantize your_model_name/ggml-model-f16.gguf your_model_name/ggml-mode
 ```
 
 Step 3: 加载并启动模型
-## Linux、macOS等的系统：
+## Linux、macOS等系统：
 #### 对话模式（允许与模型持续交互）
 ```
 ./llama-cli -m /home/fw/results8.24/earthllm826/earth.gguf -p "You are a helpful assistant" -cnv --chat-template chatml
