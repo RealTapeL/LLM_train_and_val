@@ -7,7 +7,7 @@
 
 ***以下均在Linux系统测试，win与macos系统情况未知***
 ## 准备工作
-确保您的机器有足够的内存加载完整模型以进行合并模型操作
+确保您的机器有足够的显存加载完整模型以进行合并模型操作（建议显存>24G)
 安装依赖库（项目根目录requirements.txt）
 ```
 pip install -r requirements.txt
